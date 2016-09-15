@@ -8,11 +8,6 @@ class File
     static private final int x=4;
     static private String settings[]=new String[x];
     static private int faze=1;
-    static private String[] selected;
-    static String getSelected(int i)
-    {
-        return selected[i];
-    }
 
     static void setFaze(int i)
     {
@@ -39,11 +34,11 @@ class File
     {
         return settings[i];
     }
-    static void setSetting(int i, String setting)
+    private static void setSetting(int i, String setting)
     {
         settings[i]=setting;
     }
-    static void saveSettings()
+    private static void saveSettings()
     {
         try
         {
@@ -61,13 +56,14 @@ class File
         switch(faze)
         {
             case 1:
-                if(true)//Gui.getText().equals("JanPaweł2")
+                if(Gui.getText().equals("JanPaweł2"))
                 {
                     Gui.startEnabled(true);
                     Gui.selectEnabled(true);
                     Gui.acceptEnabled(false);
                 }
                 else Gui.setConsole("Błędne hasło!");
+                Gui.acceptEnabled(true);
                 break;
             case 2:
                 File.setSetting(0,Gui.getText());
@@ -94,9 +90,10 @@ class File
                 Gui.acceptEnabled(false);
                 File.setSetting(3,Gui.getText());
                 Gui.setConsole("Wszystkie ustawienia podane. Życzę udanego pobierania ;)");
-                Gui.startEnabled(true);
-                Gui.startSetText("Start");
                 File.saveSettings();
+                Gui.newSettingsEnabled(true);
+                Gui.startEnabled(true);
+                Gui.selectEnabled(true);
                 setFaze(6);
                 break;
             case 6:

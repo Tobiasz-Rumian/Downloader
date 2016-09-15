@@ -1,7 +1,10 @@
 import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Gui extends JFrame
 {
+    private String version="1.4";
     private JButton start;
     private JButton accept;
     private JPanel mainWindow;
@@ -13,6 +16,10 @@ public class Gui extends JFrame
     private String[] selectedLinks;
     private int lines=0;
     private int lines1=0;
+    String getVersion()
+    {
+        return version;
+    }
     String getLinks(int i)
     {
         return links[i];
@@ -73,9 +80,9 @@ public class Gui extends JFrame
     {
         accept.setEnabled(a);
     }
-    void startSetText(String a)
+    void newSettingsEnabled(boolean a)
     {
-        start.setText(a);
+        newSettings.setEnabled(a);
     }
     Gui()
     {
@@ -84,11 +91,11 @@ public class Gui extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         Download download = new Download(Gui.this);
+        download.start();
         start.addActionListener(e ->
         {
             start.setEnabled(false);
             newSettings.setEnabled(false);
-            download.start();
             if(File.checkIfExist())
             {
                 lines = download.howManyLines(File.getSetting(0));
@@ -130,12 +137,26 @@ public class Gui extends JFrame
 
         newSettings.addActionListener(e ->
         {
-            newSettings.setEnabled(false);
-            File.setFaze(2);
+            newSettingsEnabled(false);
+            startEnabled(false);
+            selectEnabled(false);
             accept.setEnabled(true);
+            File.setFaze(2);
             setConsole("Podaj ścieżkę dostępu: (np: D:\\Desktop\\plik.txt)");
             text.setText("ścieżka dostępu");
 
+        });
+        text.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                switch (e.getKeyCode()){
+                    case KeyEvent.VK_ENTER :
+                        accept.doClick();
+                        break;
+                }
+            }
         });
     }
 

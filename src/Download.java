@@ -12,7 +12,6 @@ class Download
     private String tekst2;
     private String tekst3=tekst1+tekst2;
     private Gui Gui;
-
     private int howMany=0;
     private Runtime openingVLC = Runtime.getRuntime();
     private Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -24,7 +23,7 @@ class Download
     }
     void start()
     {
-        Gui.setConsole("Witaj w Downloader 1.1");
+        Gui.setConsole("Witaj w Downloader "+Gui.getVersion()+"!");
 
     }
     int howManyLines(String file)
@@ -71,13 +70,13 @@ class Download
     }
     private void downloadWait()//waiting for another package
     {
-        if(this.howMany==this.afterWhat);
+        if(this.howMany==this.afterWhat)
         {
             JOptionPane.showMessageDialog(Gui,"Kontynuować?");
         }
         howMany++;
     }
-    void sleep(int sleepingTime)
+    private void sleep(int sleepingTime)
     {
         try
         {
@@ -87,7 +86,7 @@ class Download
             e.printStackTrace();
         }
     }
-    void robotActions(int whichOne)
+    private void robotActions(int whichOne)
     {
         switch(whichOne)
         {
@@ -162,7 +161,7 @@ class Download
         }
         this.Gui.setConsole("Pobieranie zakończone. Życzę miłego dnia ;)");
     }
-    void downloadMovies(int i)
+    private void downloadMovies(int i)
     {
         try
         {
@@ -174,7 +173,7 @@ class Download
             this.clipboard.setContents(selection, selection);
             this.robotActions(2);
             String tekst4 = ".mp4,no-overwrite} :sout-keep";
-            selection = new StringSelection(tekst3+i+ tekst4);
+            selection = new StringSelection(tekst3+i+tekst4);
             clipboard.setContents(selection, selection);
             this.robotActions(3);
         }
@@ -192,8 +191,6 @@ class Download
             {
                 if (Gui.getSelectedLinks(h).equals(Integer.toString(j)))
                 {
-                    this.downloadWait();
-                    howMany++;
                     this.downloadMovies(j);
                 }
             }

@@ -1,4 +1,4 @@
 D:\DesktopZekori\a.txt
 D:\DesktopZekori\a\
 D:\Program Files\VideoLAN\VLC\VLC.exe
-1
+2
